@@ -13,20 +13,14 @@ class yield_gui:
         self.calculator = None
         self.chart = None
         self.result = None
-
-
-
-
-
+        self.pancake_img = ((Image.open("pancake.jpg")).resize((40, 40), Image.ANTIALIAS))
 
     def makeform(self):
-        img = Image.open("pancake.jpg")
-        img = img.resize((40, 40), Image.ANTIALIAS)
-        img = ImageTk.PhotoImage(img)
+        self.pancake_img = ImageTk.PhotoImage(self.pancake_img)
         for field in self.fields:
             row = tk.Frame(self.root)
-            if "NONE" in field[1]:
-                lab = tk.Label(row, image = img)
+            if "CAKE" in field[1]:
+                lab = tk.Label(row, image = self.pancake_img)
             else:
                 lab = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
 
