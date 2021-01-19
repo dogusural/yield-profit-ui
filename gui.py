@@ -6,7 +6,7 @@ from yield_calculator import yield_calculator as calc
 
 class yield_gui:
     def __init__(self):
-        self.fields = { ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry', '% APY on stable') , ('entry', '% APY on $CAKE') }
+        self.fields = [ ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry', '% APY on stable') , ('entry', '% APY on $CAKE') ]
         self.entries = {}
         self.root= None
         self.calculator = None
