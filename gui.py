@@ -57,7 +57,7 @@ class yield_gui:
         fig = plt.Figure(figsize=(5,4),dpi=100)
         print(data[0][-1])
         fig.add_subplot(111).plot(data[1],data[0],marker='')
-        self.result.config(text=str(data[0][-1]))
+        self.result.config(text=str(int(data[0][-1])) + ' $')
         self.chart = FigureCanvasTkAgg(fig,self.root)
         self.chart.get_tk_widget().pack()
         
