@@ -2,6 +2,7 @@ import tkinter as tk
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from yield_calculator import yield_calculator as calc
+from PIL import Image, ImageTk
 
 
 class yield_gui:
@@ -13,11 +14,22 @@ class yield_gui:
         self.chart = None
         self.result = None
 
+
+
+
+
+
     def makeform(self):
-        scl = 0
+        img = Image.open("pancake.jpg")
+        img = img.resize((40, 40), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(img)
         for field in self.fields:
             row = tk.Frame(self.root)
-            lab = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
+            if "NONE" in field[1]:
+                lab = tk.Label(row, image = img)
+            else:
+                lab = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
+
             if field[0] == 'scale':
                 scl = tk.Scale(row, from_=0, to=field[2], resolution=field[3], orient=tk.HORIZONTAL)
                 scl.set(field[4])
@@ -32,7 +44,7 @@ class yield_gui:
                     fill=tk.X, 
                     padx=5, 
                     pady=5)
-            lab.pack(side=tk.LEFT)
+            lab.pack(side=tk.LEFT,fill = "both", expand = "no")
             scl.pack(side=tk.RIGHT, 
                     expand=tk.YES, 
                     fill=tk.X)
@@ -44,7 +56,6 @@ class yield_gui:
         if self.result is None :
             self.result = tk.Label(self.root,text="0")
             self.result.pack()
-            print(type(self.result))
 
         amount = int(self.entries['USD Amount'].get())
         period = int(self.entries['Harvesting Period (days)'].get())
@@ -55,7 +66,6 @@ class yield_gui:
         self.calculator = calc(amount,period,stable_apy,cake_apy,duration)
         data = self.calculator.calculate()
         fig = plt.Figure(figsize=(5,4),dpi=100)
-        print(data[0][-1])
         fig.add_subplot(111).plot(data[1],data[0],marker='')
         self.result.config(text=str(int(data[0][-1])) + ' $')
         self.chart = FigureCanvasTkAgg(fig,self.root)
@@ -69,6 +79,17 @@ class yield_gui:
         self.root.geometry("700x700")
         self.makeform()
         tk.Button(self.root, text='Calculate', command=self.get_values).pack(pady=8)
+        row = tk.Frame(self.root)
+        img = Image.open("dollar.jpg")
+        img = img.resize((50, 24), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(img)
+        panel = tk.Label(row, image = img)
+        row.pack()
+        panel.pack(side = "bottom", fill = "both", expand = "no")
+
+
+
+
         self.root.mainloop()
 
 
