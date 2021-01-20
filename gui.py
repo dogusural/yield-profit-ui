@@ -37,7 +37,7 @@ class yield_gui:
                 label.pack(side=tk.LEFT,fill = "both", expand = "no")
                 entry.pack( 
                         expand=tk.NO, 
-                        fill=tk.X)
+                        )
                 self.entries[field[1]] = entry
             else:
                 label = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
@@ -84,18 +84,11 @@ class yield_gui:
         self.root.title('Pancake')
         self.root.geometry("700x700")
         self.makeform()
-        tk.Button(self.root, text='Calculate', command=self.get_values).pack(pady=8)
         row = tk.Frame(self.root)
         img = Image.open("dollar.jpg")
         img = img.resize((50, 24), Image.ANTIALIAS)
         img = ImageTk.PhotoImage(img)
-        panel = tk.Label(row, image = img)
-        row.pack()
-        panel.pack(side = "bottom", fill = "both", expand = "no")
-
-
-
-
+        tk.Button(self.root, text='Calculate', image = img,command=self.get_values).pack(pady=8)
         self.root.mainloop()
 
 
