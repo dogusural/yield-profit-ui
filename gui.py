@@ -84,6 +84,7 @@ class yield_gui:
         self.root.configure(background=self.background)
         self.root.title('Pancake')
         self.root.geometry("700x700")
+        self.root.resizable(width=False, height=False)
         self.makeform()
         row = tk.Frame(self.root)
         dollar_img = Image.open("dollar.jpg")
