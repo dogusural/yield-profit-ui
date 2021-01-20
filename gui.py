@@ -14,13 +14,18 @@ class yield_gui:
         self.chart = None
         self.result = None
         self.pancake_img = ((Image.open("pancake.jpg")).resize((40, 40), Image.ANTIALIAS))
+        self.usd_img = ((Image.open("usd.jpg")).resize((40, 40), Image.ANTIALIAS))
 
     def makeform(self):
         self.pancake_img = ImageTk.PhotoImage(self.pancake_img)
+        self.usd_img = ImageTk.PhotoImage(self.usd_img)
+
         for field in self.fields:
             row = tk.Frame(self.root)
             if "CAKE" in field[1]:
                 lab = tk.Label(row, image = self.pancake_img)
+            elif "stable" in field[1]:
+                lab = tk.Label(row, image = self.usd_img)
             else:
                 lab = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
 
@@ -28,7 +33,7 @@ class yield_gui:
                 scl = tk.Scale(row, from_=0, to=field[2], resolution=field[3], orient=tk.HORIZONTAL)
                 scl.set(field[4])
             else:
-                scl = tk.Entry(row)
+                scl = tk.Entry(row,width=10)
                 if "stable" in field[1]:
                     scl.insert(0, "28.77")
                 else:
@@ -40,7 +45,7 @@ class yield_gui:
                     pady=5)
             lab.pack(side=tk.LEFT,fill = "both", expand = "no")
             scl.pack(side=tk.RIGHT, 
-                    expand=tk.YES, 
+                    expand=tk.NO, 
                     fill=tk.X)
             self.entries[field[1]] = scl
 
