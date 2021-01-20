@@ -3,6 +3,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from yield_calculator import yield_calculator as calc
 from PIL import Image, ImageTk
+import sys
+
 
 
 class yield_gui:
@@ -51,8 +53,8 @@ class yield_gui:
                         fill=tk.X)
                 self.entries[field[1]] = scale 
 
-            
-
+    def exit(self):
+        sys.exit()
 
     def get_values(self):
         if self.chart is not None :
@@ -84,10 +86,16 @@ class yield_gui:
         self.root.geometry("700x700")
         self.makeform()
         row = tk.Frame(self.root)
-        img = Image.open("dollar.jpg")
-        img = img.resize((50, 24), Image.ANTIALIAS)
-        img = ImageTk.PhotoImage(img)
-        tk.Button(self.root, text='Calculate', image = img,command=self.get_values).pack(pady=8)
+        dollar_img = Image.open("dollar.jpg")
+        dollar_img = dollar_img.resize((50, 24), Image.ANTIALIAS)
+        dollar_img = ImageTk.PhotoImage(dollar_img)
+
+        exit_img = Image.open("exit.png")
+        exit_img = exit_img.resize((50, 24), Image.ANTIALIAS)
+        exit_img = ImageTk.PhotoImage(exit_img)
+
+        tk.Button(self.root, text='Calculate', image = exit_img,command=self.exit).place(x=630,y=650)
+        tk.Button(self.root, text='Calculate', image = dollar_img,command=self.get_values).pack(pady=8)
         self.root.mainloop()
 
 
