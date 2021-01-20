@@ -12,7 +12,8 @@ class yield_gui:
         self.calculator = None
         self.chart = None
         self.result = None
-        self.pixels = 25
+        self.pixels = 30
+        self.background = "white"
         self.pancake_img = ((Image.open("pancake.jpg")).resize((self.pixels, self.pixels), Image.ANTIALIAS))
         self.usd_img = ((Image.open("usd.jpg")).resize((self.pixels, self.pixels), Image.ANTIALIAS))
         self.fields = [ ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry',"usd_img", None , None, "28.77") , ('entry', "pancake_img", None , None, "229.35") ]
@@ -22,12 +23,12 @@ class yield_gui:
         self.usd_img = ImageTk.PhotoImage(self.usd_img)
 
         for field in self.fields:
-            row = tk.Frame(self.root)
+            row = tk.Frame(self.root,bg=self.background)
             if field[0] == 'entry':
                 if field[1] == 'usd_img':
-                    label = tk.Label(row, image = self.usd_img)
+                    label = tk.Label(row, bg=self.background,image = self.usd_img)
                 else:
-                    label = tk.Label(row, image = self.pancake_img)
+                    label = tk.Label(row,bg=self.background, image = self.pancake_img)
                 entry = tk.Entry(row,width=10)
                 entry.insert(0, field[4])
                 row.pack(side=tk.TOP, 
@@ -38,8 +39,8 @@ class yield_gui:
                 entry.pack( expand=tk.NO )
                 self.entries[field[1]] = entry
             else:
-                label = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
-                scale = tk.Scale(row, from_=0, to=field[2], resolution=field[3], orient=tk.HORIZONTAL)
+                label = tk.Label(row,bg=self.background, width=22, text=field[1]+": ", anchor='w')
+                scale = tk.Scale(row, from_=0, to=field[2],bg=self.background, resolution=field[3], orient=tk.HORIZONTAL)
                 scale.set(field[4])
                 row.pack(side=tk.TOP, 
                     fill=tk.X, 
@@ -57,7 +58,7 @@ class yield_gui:
         if self.chart is not None :
             self.chart.get_tk_widget().pack_forget()
         if self.result is None :
-            self.result = tk.Label(self.root,text="0")
+            self.result = tk.Label(self.root,text="0", bg= self.background)
             self.result.pack()
 
         amount = int(self.entries['USD Amount'].get())
@@ -78,6 +79,7 @@ class yield_gui:
 
     def run(self):
         self.root = tk.Tk()
+        self.root.configure(background=self.background)
         self.root.title('Pancake')
         self.root.geometry("700x700")
         self.makeform()
