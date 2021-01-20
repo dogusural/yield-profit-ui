@@ -35,9 +35,7 @@ class yield_gui:
                     padx=5, 
                     pady=5)
                 label.pack(side=tk.LEFT,fill = "both", expand = "no")
-                entry.pack( 
-                        expand=tk.NO, 
-                        )
+                entry.pack( expand=tk.NO )
                 self.entries[field[1]] = entry
             else:
                 label = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
@@ -48,8 +46,7 @@ class yield_gui:
                     padx=5, 
                     pady=5)
                 label.pack(side=tk.LEFT,fill = "both", expand = "no")
-                scale.pack( 
-                        expand=tk.NO, 
+                scale.pack( expand=tk.NO, 
                         fill=tk.X)
                 self.entries[field[1]] = scale 
 
