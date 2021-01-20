@@ -7,7 +7,6 @@ from PIL import Image, ImageTk
 
 class yield_gui:
     def __init__(self):
-        self.fields = [ ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry', '% APY on stable') , ('entry', '% APY on $CAKE') ]
         self.entries = {}
         self.root= None
         self.calculator = None
@@ -15,39 +14,47 @@ class yield_gui:
         self.result = None
         self.pancake_img = ((Image.open("pancake.jpg")).resize((40, 40), Image.ANTIALIAS))
         self.usd_img = ((Image.open("usd.jpg")).resize((40, 40), Image.ANTIALIAS))
+        self.fields = [ ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry',"usd_img", None , None, "28.77") , ('entry', "pancake_img", None , None, "229.35") ]
 
     def makeform(self):
         self.pancake_img = ImageTk.PhotoImage(self.pancake_img)
         self.usd_img = ImageTk.PhotoImage(self.usd_img)
 
         for field in self.fields:
+            print(field[1])
             row = tk.Frame(self.root)
-            if "CAKE" in field[1]:
-                lab = tk.Label(row, image = self.pancake_img)
-            elif "stable" in field[1]:
-                lab = tk.Label(row, image = self.usd_img)
-            else:
-                lab = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
-
-            if field[0] == 'scale':
-                scl = tk.Scale(row, from_=0, to=field[2], resolution=field[3], orient=tk.HORIZONTAL)
-                scl.set(field[4])
-            else:
-                scl = tk.Entry(row,width=10)
-                if "stable" in field[1]:
-                    scl.insert(0, "28.77")
+            if field[0] == 'entry':
+                if field[1] == 'usd_img':
+                    label = tk.Label(row, image = self.usd_img)
                 else:
-                    scl.insert(0, "229.35")
-
-            row.pack(side=tk.TOP, 
+                    label = tk.Label(row, image = self.pancake_img)
+                entry = tk.Entry(row,width=10)
+                entry.insert(0, field[4])
+                row.pack(side=tk.TOP, 
                     fill=tk.X, 
                     padx=5, 
                     pady=5)
-            lab.pack(side=tk.LEFT,fill = "both", expand = "no")
-            scl.pack(side=tk.RIGHT, 
-                    expand=tk.NO, 
-                    fill=tk.X)
-            self.entries[field[1]] = scl
+                label.pack(side=tk.LEFT,fill = "both", expand = "no")
+                entry.pack(side=tk.RIGHT, 
+                        expand=tk.NO, 
+                        fill=tk.X)
+                self.entries[field[1]] = entry
+            else:
+                label = tk.Label(row, width=22, text=field[1]+": ", anchor='w')
+                scale = tk.Scale(row, from_=0, to=field[2], resolution=field[3], orient=tk.HORIZONTAL)
+                scale.set(field[4])
+                row.pack(side=tk.TOP, 
+                    fill=tk.X, 
+                    padx=5, 
+                    pady=5)
+                label.pack(side=tk.LEFT,fill = "both", expand = "no")
+                scale.pack(side=tk.RIGHT, 
+                        expand=tk.NO, 
+                        fill=tk.X)
+                self.entries[field[1]] = scale 
+
+            
+
 
     def get_values(self):
         if self.chart is not None :
@@ -59,8 +66,8 @@ class yield_gui:
         amount = int(self.entries['USD Amount'].get())
         period = int(self.entries['Harvesting Period (days)'].get())
         duration = int(self.entries['Duration in Years'].get())
-        stable_apy = float(self.entries['% APY on stable'].get())
-        cake_apy = float(self.entries['% APY on $CAKE'].get())
+        stable_apy = float(self.entries["usd_img"].get())
+        cake_apy = float(self.entries["pancake_img"].get())
        
         self.calculator = calc(amount,period,stable_apy,cake_apy,duration)
         data = self.calculator.calculate()
