@@ -31,7 +31,7 @@ class yield_gui:
                     label = tk.Label(row, bg=self.background,image = self.usd_img)
                 else:
                     label = tk.Label(row,bg=self.background, image = self.pancake_img)
-                entry = tk.Entry(row,width=10)
+                entry = tk.Entry(row, width=10)
                 entry.insert(0, field[4])
                 row.pack(side=tk.TOP, 
                     fill=tk.X, 
@@ -41,7 +41,7 @@ class yield_gui:
                 entry.pack( expand=tk.NO )
                 self.entries[field[1]] = entry
             else:
-                label = tk.Label(row,bg=self.background, width=22, text=field[1]+": ", anchor='w')
+                label = tk.Label(row,bg=self.background, width=22, text=field[1]+": ", anchor='w',font="Helvetica")
                 scale = tk.Scale(row, from_=0, to=field[2],bg=self.background, resolution=field[3], orient=tk.HORIZONTAL)
                 scale.set(field[4])
                 row.pack(side=tk.TOP, 
