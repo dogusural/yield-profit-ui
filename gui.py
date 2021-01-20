@@ -12,8 +12,9 @@ class yield_gui:
         self.calculator = None
         self.chart = None
         self.result = None
-        self.pancake_img = ((Image.open("pancake.jpg")).resize((40, 40), Image.ANTIALIAS))
-        self.usd_img = ((Image.open("usd.jpg")).resize((40, 40), Image.ANTIALIAS))
+        self.pixels = 25
+        self.pancake_img = ((Image.open("pancake.jpg")).resize((self.pixels, self.pixels), Image.ANTIALIAS))
+        self.usd_img = ((Image.open("usd.jpg")).resize((self.pixels, self.pixels), Image.ANTIALIAS))
         self.fields = [ ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry',"usd_img", None , None, "28.77") , ('entry', "pancake_img", None , None, "229.35") ]
 
     def makeform(self):
@@ -21,7 +22,6 @@ class yield_gui:
         self.usd_img = ImageTk.PhotoImage(self.usd_img)
 
         for field in self.fields:
-            print(field[1])
             row = tk.Frame(self.root)
             if field[0] == 'entry':
                 if field[1] == 'usd_img':
@@ -35,7 +35,7 @@ class yield_gui:
                     padx=5, 
                     pady=5)
                 label.pack(side=tk.LEFT,fill = "both", expand = "no")
-                entry.pack(side=tk.RIGHT, 
+                entry.pack( 
                         expand=tk.NO, 
                         fill=tk.X)
                 self.entries[field[1]] = entry
