@@ -48,7 +48,7 @@ class yield_gui:
                     padx=5, 
                     pady=5)
                 label.pack(side=tk.LEFT,fill = "both", expand = "no")
-                scale.pack(side=tk.RIGHT, 
+                scale.pack( 
                         expand=tk.NO, 
                         fill=tk.X)
                 self.entries[field[1]] = scale 
