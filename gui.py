@@ -18,7 +18,7 @@ class yield_gui:
         self.background = "white"
         self.pancake_img = ((Image.open("pancake.jpg")).resize((self.pixels, self.pixels), Image.ANTIALIAS))
         self.usd_img = ((Image.open("usd.jpg")).resize((self.pixels, self.pixels), Image.ANTIALIAS))
-        self.fields = [ ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry',"usd_img", None , None, "28.77") , ('entry', "pancake_img", None , None, "229.35") ]
+        self.fields = [ ('scale', 'USD Amount', 50000 , 5, 0), ('scale', 'Harvesting Period (days)',360, 1, 1), ('scale', 'Duration in Years',10, 1, 1) , ('entry',"usd_img", None , None, "42.79") , ('entry', "pancake_img", None , None, "200.45") ]
 
     def makeform(self):
         self.pancake_img = ImageTk.PhotoImage(self.pancake_img)
