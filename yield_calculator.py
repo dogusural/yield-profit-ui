@@ -2,7 +2,7 @@
 class yield_calculator:
 
     days_in_year = 365
-    total_harvest_fee = 0.5
+    total_harvest_fee = 0.29
 
     def __init__(self, stable_amount, harvest_period, apy_stable, apy_cake, harvest_year=1):
         self.stable_amount = stable_amount
